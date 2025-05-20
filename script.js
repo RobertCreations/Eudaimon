@@ -1,5 +1,5 @@
 async function getAIResponse(message) {
-  const res = await fetch('https://your-replit-name.username.repl.co/chat', {
+  const res = await fetch('https://eudaimon-dellatorre2002.replit.app', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
