@@ -1,5 +1,5 @@
 async function getAIResponse(message) {
-  const res = await fetch('https://70786f4a-783b-490b-a17d-1ed34377a429-00-1zz89m0m1y8he.riker.replit.dev/chat', {
+  const res = await fetch('https://70786f4a-783b490b-a17d-1ed34377a429-00-1zz89m0m1y8he.riker.replit.dev/chat', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -35,12 +35,20 @@ document.getElementById('chat-form').addEventListener('submit', async (e) => {
   try {
     const botReply = await getAIResponse(userMessage);
     const chatbox = document.getElementById('chatbox');
-    chatbox.lastChild.remove();
+
+    if (chatbox.lastChild && chatbox.lastChild.textContent === 'Typing...') {
+      chatbox.removeChild(chatbox.lastChild);
+    }
+
     addMessageToChatbox(botReply, 'bot');
   } catch (error) {
     const chatbox = document.getElementById('chatbox');
-    chatbox.lastChild.remove();
+
+    if (chatbox.lastChild && chatbox.lastChild.textContent === 'Typing...') {
+      chatbox.removeChild(chatbox.lastChild);
+    }
+
     addMessageToChatbox("Oops! Something went wrong. Try again.", 'bot');
-    console.error('Error getting AI response:', error);
   }
 });
+
