@@ -10,3 +10,37 @@ async function getAIResponse(message) {
   const data = await res.json();
   return data.reply;
 }
+
+function addMessageToChatbox(message, sender) {
+  const chatbox = document.getElementById('chatbox');
+  const msgDiv = document.createElement('div');
+  msgDiv.textContent = message;
+  msgDiv.className = sender;
+  chatbox.appendChild(msgDiv);
+  chatbox.scrollTop = chatbox.scrollHeight;
+}
+
+document.getElementById('chat-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const input = document.getElementById('messageInput');
+  const userMessage = input.value.trim();
+  if (!userMessage) return;
+
+  addMessageToChatbox(userMessage, 'user');
+  input.value = '';
+
+  addMessageToChatbox('Typing...', 'bot');
+
+  try {
+    const botReply = await getAIResponse(userMessage);
+    const chatbox = document.getElementById('chatbox');
+    chatbox.lastChild.remove();
+    addMessageToChatbox(botReply, 'bot');
+  } catch (error) {
+    const chatbox = document.getElementById('chatbox');
+    chatbox.lastChild.remove();
+    addMessageToChatbox("Oops! Something went wrong. Try again.", 'bot');
+    console.error('Error getting AI response:', error);
+  }
+});
