@@ -20,6 +20,7 @@
     </div>
 
     <form id="chat-form">
+      <label for="messageInput" class="visually-hidden">Your message</label>
       <input
         type="text"
         id="messageInput"
@@ -32,6 +33,17 @@
   </div>
 
   <script src="script.js"></script>
+
+  <style>
+    /* Visually hide labels but keep them accessible */
+    .visually-hidden {
+      position: absolute !important;
+      height: 1px; width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap;
+    }
+  </style>
 </body>
 </html>
 
